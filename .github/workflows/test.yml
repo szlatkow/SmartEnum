@@ -29,7 +29,7 @@ jobs:
             $newVersion = $projectVersion
             $isNewTag = 'true'
             $smartEnumTag = "SmartEnum-v$newVersion"
-            git push origin "$smartEnumTag"
+            git push –tags origin "$smartEnumTag"
           }
 
           Write-Output "::set-output name=new_version::$(echo $newVersion)"
