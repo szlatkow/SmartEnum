@@ -20,13 +20,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
-      - name: Download and extract Artifacts
-        id: dl_artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: NuGet Packages
-          path: NuGet/
-
       - name: Determine project version
         id: determine_project_version
         shell: pwsh
