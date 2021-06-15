@@ -4,8 +4,7 @@ on: [push, pull_request, workflow_dispatch]
 
 jobs:
   cd:
-  - name: Continuous Deployment
-    needs: ci
+    name: Continuous Deployment
     runs-on: windows-latest
     steps:
       - name: Setup dotnet
