@@ -28,7 +28,7 @@ jobs:
           if ( $projectVersion -ne $latestGitVersion -and $projectVersion -eq ($versionsList | Sort { [Version] $_ } -Descending)[0] ) {
             $newVersion = $projectVersion
             $isNewTag = 'true'
-            $smartEnumTag = "SmartEnum-v$newVersion"
+            $smartEnumTag = SmartEnum-v$newVersion
             git tag $smartEnumTag
             git push –tags origin $smartEnumTag
           }
