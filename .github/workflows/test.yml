@@ -7,7 +7,7 @@ jobs:
     name: Continuous Integration
     runs-on: windows-latest
     outputs:
-      is_changes: ${{ steps.filter_changes.outputs.changes }}
+      is_changes: ${{ steps.filter_changes.outputs.is_changes }}
       is_changes_in_smartenum: ${{ steps.filter_changes.outputs.is_changes_in_smartenum }}
     steps:
       - name: Data gatherer
