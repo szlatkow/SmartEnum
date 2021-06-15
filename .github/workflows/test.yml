@@ -4,7 +4,7 @@ on: [push, pull_request, workflow_dispatch]
 
 jobs:
   cd:
-    name: Continuous Deployment
+  - name: Continuous Deployment
     needs: ci
     runs-on: windows-latest
     steps:
