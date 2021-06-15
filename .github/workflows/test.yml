@@ -175,18 +175,6 @@ jobs:
           name: NuGet Packages
           path: NuGet/
 
-      - name: Publish to NuGet
-        id: publish_to_nuget
-        shell: pwsh
-        run: |
-          $packagesList = Get-ChildItem -Path NuGet -Filter *.nupkg -File
-
-          foreach ( $package in $packagesList ) {
-            dotnet nuget push NuGet\$package.Name `
-            --source https://api.nuget.org/v3/index.json `
-            --api-key ${{ secrets.NUGET_API_KEY }}
-          }
-
       - name: Determine project version
         id: determine_project_version
         shell: pwsh
