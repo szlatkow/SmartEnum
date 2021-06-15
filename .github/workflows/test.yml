@@ -7,12 +7,6 @@ jobs:
     name: Continuous Deployment
     runs-on: windows-latest
     steps:
-      - name: Setup dotnet
-        id: setup_dotnet
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 3.1.300
-
       - name: Checkout repository
         id: checkout_repo
         uses: actions/checkout@v2
@@ -30,7 +24,7 @@ jobs:
           $newVersion = ''
           $isNewTag = 'false'
           $versionsList = ($projectVersion, $latestGitVersion)
-          $versionsList | foreach-Object { echo $_ }
+          $versionsList | foreach-Object { echo $_.GetType() }
 
 
           Write-Output "::set-output name=new_version::$(echo $newVersion)"
