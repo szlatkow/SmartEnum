@@ -28,6 +28,15 @@ jobs:
           if ( $projectVersion -ne $latestGitVersion -and $projectVersion -eq ($versionsList | Sort { [Version] $_ } -Descending)[0] ) {
             $newVersion = $projectVersion
             $isNewTag = 'true'
+            $smartEnumTag = "SmartEnum-v$newVersion"
+
+            git config --global user.name 'szlatkow'
+
+            git config --global user.email 'zlatkov@singlet.dev'
+
+            git tag -a -m "New Tag" $smartEnumTag
+
+            git push --follow-tags
           
             Write-Output "::set-output name=new_version::$(echo $newVersion)"
           }
