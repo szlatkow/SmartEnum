@@ -39,8 +39,7 @@ jobs:
         id: create_release
         uses: softprops/action-gh-release@v1
         with:
-          name: SmartEnum ${{ steps.determine_project_version.outputs.new_version }}
-          tag_name: SmartEnum-v${{ steps.determine_project_version.outputs.new_version }}
+          name: "SmartEnum ${{ steps.determine_project_version.outputs.new_version }}"
+          tag_name: "SmartEnum-v${{ steps.determine_project_version.outputs.new_version }}"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
-          GITHUB_REPOSITORY: my_gh_org/my_gh_repo
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
