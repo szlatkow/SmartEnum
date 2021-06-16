@@ -42,4 +42,4 @@ jobs:
           name: SmartEnum ${{ steps.determine_project_version.outputs.new_version }}
           tag_name: SmartEnum-v${{ steps.determine_project_version.outputs.new_version }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
