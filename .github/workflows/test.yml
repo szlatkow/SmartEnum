@@ -23,7 +23,7 @@ jobs:
           $projectVersion = [String](([xml](Get-Content $filePath)).Project.PropertyGroup.Version)
           $newVersion = ''
           $isNewTag = 'false'
-          $versionsList = $projectVersion, $latestGitVersion
+          $versionsList = ($projectVersion, $latestGitVersion)
 
           if ( $projectVersion -ne $latestGitVersion -and $projectVersion -eq ($versionsList | Sort { [Version] $_ } -Descending)[0] ) {
             $newVersion = $projectVersion
@@ -39,7 +39,7 @@ jobs:
         id: create_release
         uses: softprops/action-gh-release@v1
         with:
-          name: "SmartEnum ${{ steps.determine_project_version.outputs.new_version }}"
-          tag_name: "SmartEnum-v${{ steps.determine_project_version.outputs.new_version }}"
+          name: SmartEnum ${{ steps.determine_project_version.outputs.new_version }}
+          tag_name: SmartEnum-v${{ steps.determine_project_version.outputs.new_version }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
