@@ -37,9 +37,9 @@ jobs:
       - if: steps.determine_project_version.outputs.is_new_tag == 'true'
         name: Create and publish release
         id: create_release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@master
         with:
-          name: ${{ steps.determine_project_version.outputs.new_version }}
-          tag_name: v${{ steps.determine_project_version.outputs.new_version }}
+          name: SmartEnum ${{ steps.determine_project_version.outputs.new_version }}
+          tag_name: SmartEnum-v${{ steps.determine_project_version.outputs.new_version }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
