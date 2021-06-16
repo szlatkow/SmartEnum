@@ -29,14 +29,6 @@ jobs:
             $newVersion = $projectVersion
             $isNewTag = 'true'
             $smartEnumTag = "SmartEnum-v$newVersion" -replace '\s', ''
-
-            git config --global user.name 'szlatkow'
-
-            git config --global user.email 'zlatkov@singlet.dev'
-
-            git tag -a -m "New Tag" $smartEnumTag
-
-            git push --follow-tags
           }
 
           Write-Output "::set-output name=new_version::$(echo $newVersion)"
@@ -51,3 +43,4 @@ jobs:
           tag_name: SmartEnum-v${{ steps.determine_project_version.outputs.new_version }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          GITHUB_REPOSITORY: my_gh_org/my_gh_repo
