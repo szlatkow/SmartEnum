@@ -30,6 +30,7 @@ jobs:
             $isNewTag = 'true'
             $smartEnumTag = "SmartEnum-v$newVersion" -replace '\s', ''
             git push --tags
+            gh auth login ${{ secrets.GITHUB_TOKEN }}
             gh release create $newVersion
           }
 
