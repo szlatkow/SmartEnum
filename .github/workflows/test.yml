@@ -30,7 +30,7 @@ jobs:
             $isNewTag = 'true'
             $smartEnumTag = "SmartEnum-v$newVersion" -replace '\s', ''
             git push --tags
-            gh create release $newVersion
+            gh release create $newVersion
           }
 
           Write-Output "::set-output name=new_version::$(echo $newVersion)"
