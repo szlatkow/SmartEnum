@@ -6,7 +6,8 @@ jobs:
   ci:
     name: Continuous Integration
     runs-on: windows-latest
-
+    outputs:
+      new_version: ${{ steps.determine_project_version.outputs.new_version }}
     steps:
       - name: Checkout repository
         id: checkout_repo
@@ -42,7 +43,9 @@ jobs:
           Write-Output "::set-output name=is_new_tag::$(echo $isNewTag)"
           
   cd:
+    if: needs.ci.outputs.is_changes == 'true'
     name: Continuous Deployment
+    needs: ci
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -56,7 +59,7 @@ jobs:
         id: create_release
         uses: softprops/action-gh-release@v1
         with:
-          name: SmartEnum ${{ steps.determine_project_version.outputs.new_version }}
-          tag_name: SmartEnum-v${{ steps.determine_project_version.outputs.new_version}}
+          name: SmartEnum ${{ needs.ci.outputs.new_version }}
+          tag_name: SmartEnum-v${{ needs.ci.outputs.outputs.new_version}}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
