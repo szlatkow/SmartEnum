@@ -43,7 +43,6 @@ jobs:
           Write-Output "::set-output name=is_new_tag::$(echo $isNewTag)"
           
   cd:
-    if: needs.ci.outputs.is_changes == 'true'
     name: Continuous Deployment
     needs: ci
     runs-on: ubuntu-latest
