@@ -14,6 +14,12 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
+      - name: Build and test SmartEnum project
+        id: build_and_test_smartenum_project
+        shell: pwsh
+        run: |
+          dotnet build .\src\SmartEnum\SmartEnum.csproj --configuration Release --output Artifacts
+          dotnet test .\test\SmartEnum.UnitTests\SmartEnum.UnitTests.csproj --configuration Release --no-build
       - name: Determine project version
         id: determine_project_version
         shell: pwsh
@@ -36,3 +42,13 @@ jobs:
 
           Write-Output "::set-output name=new_version::$(echo $newVersion)"
           Write-Output "::set-output name=is_new_tag::$(echo $isNewTag)"
+          
+
+      - name: Create and publish release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: SmartEnum ${{ steps.determine_project_version.outputs.new_version }}
+          tag_name: SmartEnum-v${{ steps.determine_project_version.outputs.new_version}}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
