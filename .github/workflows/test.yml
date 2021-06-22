@@ -62,4 +62,4 @@ jobs:
           name: SmartEnum ${{ needs.ci.outputs.new_version }}
           tag_name: SmartEnum-v${{ needs.ci.outputs.outputs.new_version}}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
