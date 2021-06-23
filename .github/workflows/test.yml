@@ -22,7 +22,7 @@ jobs:
         run: |
           $latestGitVersion = (git tag --list 'SmartEnum-*' --sort=-committerdate)[0] -replace 'SmartEnum-v', ''
           $filePath = (Get-ChildItem .\src\SmartEnum\SmartEnum.csproj).FullName
-          $projectVersion = [String](([xml](Get-Content $filePath)).Project.PropertyGroup.Version)
+          $projectVersion = [String](([xml](Get-Content $filePath)).Project.PropertyGroup.Version) -replace '\s', ''
           $newVersion = ''
           $isNewTag = 'false'
           $versionsList = ($projectVersion, $latestGitVersion)
@@ -30,7 +30,7 @@ jobs:
           echo "projectVersion = $projectVersion"
 
           if ( $projectVersion -ne $latestGitVersion -and $projectVersion -eq ($versionsList | Sort { [Version] $_ } -Descending)[0] ) {
-            $newVersion = "$projectVersion" -replace '\s', ''
+            $newVersion = $projectVersion
             $isNewTag = 'true'
             $smartEnumTag = "SmartEnum-v$newVersion" -replace '\s', ''
           }
