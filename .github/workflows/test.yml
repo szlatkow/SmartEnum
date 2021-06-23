@@ -16,12 +16,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
-      - name: Build and test SmartEnum project
-        id: build_and_test_smartenum_project
-        shell: pwsh
-        run: |
-          dotnet build .\src\SmartEnum\SmartEnum.csproj --configuration Release --output Artifacts
-          dotnet test .\test\SmartEnum.UnitTests\SmartEnum.UnitTests.csproj --configuration Release --no-build
       - name: Determine project version
         id: determine_project_version
         shell: pwsh
