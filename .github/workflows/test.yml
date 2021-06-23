@@ -40,8 +40,8 @@ jobs:
         id: create_release
         shell: pwsh
         run: |
-          $releaseTag = "[SmartEnum-v${{ steps.determine_project_version.outputs.new_version }}]"
-          $releaseTitle = "SmartEnum ${{ steps.determine_project_version.outputs.new_version }}"
+          $releaseTag = ["SmartEnum-v${{ steps.determine_project_version.outputs.new_version }}"]
+          $releaseTitle = ["SmartEnum ${{ steps.determine_project_version.outputs.new_version }}"]
 
           gh release create $releaseTag --title $releaseTitle
         env:
