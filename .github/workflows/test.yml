@@ -26,6 +26,8 @@ jobs:
           $newVersion = ''
           $isNewTag = 'false'
           $versionsList = ($projectVersion, $latestGitVersion)
+          echo "latestGitVersion = $latestGitVersion"
+          echo "projectVersion = $projectVersion"
 
           if ( $projectVersion -ne $latestGitVersion -and $projectVersion -eq ($versionsList | Sort { [Version] $_ } -Descending)[0] ) {
             $newVersion = "$projectVersion" -replace '\s', ''
