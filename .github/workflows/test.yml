@@ -81,13 +81,11 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: NuGet packages
-          path: |
-            NuGet/
+          path: NuGet/
             
       - name: Upload artifacts
         id: upload_artifacts
         uses: actions/upload-artifact@v1
         with:
           name: Artifacts
-          path: |
-            Artifacts/
+          path: Artifacts/
