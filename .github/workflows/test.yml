@@ -1,0 +1,93 @@
+name: CI/CD Pipeline
+
+on: [ push, pull_request, workflow_dispatch ]
+
+jobs:
+  ci:
+    name: Continuous Integration
+    runs-on: windows-latest
+
+    steps:
+      - name: Setup .NET Core
+        id: setup_dotnet_core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.300
+
+      - name: Checkout repository
+        id: checkout_repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Build and test SmartEnum project
+        id: build_and_test_smartenum_project
+        shell: pwsh
+        run: |
+          dotnet build .\src\SmartEnum\SmartEnum.csproj --configuration Release --output Artifacts
+          dotnet test .\test\SmartEnum.UnitTests\SmartEnum.UnitTests.csproj --configuration Release --no-build
+
+      - name: Build and test SmartEnum.Autofixture project
+        id: build_and_test_smartenum_autofixture_project
+        shell: pwsh
+        run: |
+          dotnet build .\src\SmartEnum.AutoFixture\SmartEnum.AutoFixture.csproj --configuration Release --output Artifacts
+          dotnet test .\test\SmartEnum.AutoFixture.UnitTests\SmartEnum.AutoFixture.UnitTests.csproj --configuration Release --no-build
+
+      - name: Build and test SmartEnum.JsonNet project
+        id: build_and_test_smartenum_jsonnet_project
+        shell: pwsh
+        run: |
+          dotnet build .\src\SmartEnum.JsonNet\SmartEnum.JsonNet.csproj --configuration Release --output Artifacts
+          dotnet test .\test\SmartEnum.JsonNet.UnitTests\SmartEnum.JsonNet.UnitTests.csproj --configuration Release --no-build
+
+      - name: Build and test SmartEnum.MessagePack project
+        id: build_and_test_smartenum_messagepack_project
+        shell: pwsh
+        run: |
+          dotnet build .\src\SmartEnum.MessagePack\SmartEnum.MessagePack.csproj --configuration Release --output Artifacts
+          dotnet test .\test\SmartEnum.MessagePack.UnitTests\SmartEnum.MessagePack.UnitTests.csproj --configuration Release --no-build
+
+      - name: Build and test SmartEnum.ProtoBufNet project
+        id: build_and_test_smartenum_protobufnet_project
+        shell: pwsh
+        run: |
+          dotnet build .\src\SmartEnum.ProtoBufNet\SmartEnum.ProtoBufNet.csproj --configuration Release --output Artifacts
+          dotnet test .\test\SmartEnum.ProtoBufNet.UnitTests\SmartEnum.ProtoBufNet.UnitTests.csproj --configuration Release --no-build
+
+      - name: Build and test SmartEnum.SystemTextJson project
+        id: build_and_test_smartenum_systemtextjson_project
+        shell: pwsh
+        run: |
+          dotnet build .\src\SmartEnum.SystemTextJson\SmartEnum.SystemTextJson.csproj --configuration Release --output Artifacts
+          dotnet test .\test\SmartEnum.SystemTextJson.UnitTests\SmartEnum.SystemTextJson.UnitTests.csproj --configuration Release --no-build
+
+      - name: Build and test SmartEnum.Utf8Json project
+        id: build_and_test_smartenum_utf8json_project
+        shell: pwsh
+        run: |
+          dotnet build .\src\SmartEnum.Utf8Json\SmartEnum.Utf8Json.csproj --configuration Release --output Artifacts
+          dotnet test .\test\SmartEnum.Utf8Json.UnitTests\SmartEnum.Utf8Json.UnitTests.csproj --configuration Release --no-build
+
+      - name: Gather NuGet packages
+        id: gather_nuget_packages
+        shell: pwsh
+        run: |
+          New-Item .\NuGet -ItemType Directory
+          Move-Item -Path .\Artifacts\*.nupkg -Destination .\NuGet
+
+      - name: Upload NuGet packages
+        id: upload_packages
+        uses: actions/upload-artifact@v1
+        with:
+          name: NuGet packages
+          path: |
+            NuGet/
+            
+      - name: Upload artifacts
+        id: upload_artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: Artifacts
+          path: |
+            Artifacts/
